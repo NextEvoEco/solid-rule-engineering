@@ -1,0 +1,4 @@
+interface:
+  display_name: "SOLID Rule Engineering"
+  short_description: "Analyze and verify function-level SRP with evidence"
+  default_prompt: "Use $solid-rule-engineering to evaluate function responsibilities, dependencies, and caller contracts, and report the evidence for each applicable rule."
