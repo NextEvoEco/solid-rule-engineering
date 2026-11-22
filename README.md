@@ -26,11 +26,11 @@ operation groups in the same method."
 
 ### Three modes
 
-| Mode | When to use | Input |
-| --- | --- | --- |
-| **Design** | Before implementation | PRD, SRS, STS, user stories, or a plain prompt |
-| **Review** | During implementation | Partial code, current diff |
-| **Acceptance** | After implementation | Complete code, callers, tests, diff |
+| Mode           | When to use           | Input                                          |
+| -------------- | --------------------- | ---------------------------------------------- |
+| **Design**     | Before implementation | PRD, SRS, STS, user stories, or a plain prompt |
+| **Review**     | During implementation | Partial code, current diff                     |
+| **Acceptance** | After implementation  | Complete code, callers, tests, diff            |
 
 ### When requirements are unavailable
 
@@ -149,12 +149,12 @@ platforms/
 
 Covers semantic-first OO SOLID analysis at package, class, interface, and method levels.
 
-| Prefix | Principle |
-| --- | --- |
-| `SEM` | Semantic basis — requirement mapping before any SOLID rule |
-| `SRP` | Single Responsibility Principle |
-| `OCP` | Open/Closed Principle |
-| `LSP` | Liskov Substitution Principle |
-| `ISP` | Interface Segregation Principle |
-| `DIP` | Dependency Inversion Principle |
-| `REC` | Recommendation proportionality |
+| Prefix | Principle                                                  |
+| ------ | ---------------------------------------------------------- |
+| `SEM`  | Semantic basis — requirement mapping before any SOLID rule |
+| `SRP`  | Single Responsibility Principle                            |
+| `OCP`  | Open/Closed Principle                                      |
+| `LSP`  | Liskov Substitution Principle                              |
+| `ISP`  | Interface Segregation Principle                            |
+| `DIP`  | Dependency Inversion Principle                             |
+| `REC`  | Recommendation proportionality                             |
