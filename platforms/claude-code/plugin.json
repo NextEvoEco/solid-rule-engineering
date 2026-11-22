@@ -1,0 +1,12 @@
+{
+  "name": "solid-rule-engineering",
+  "version": "0.2.0",
+  "description": "Map requirements to OO code and review SOLID evidence",
+  "skill": "../../SKILL.md",
+  "references": [
+    "../../references/rule-schema.md",
+    "../../references/oo-solid-rules.md",
+    "../../references/srp-function-rules.md",
+    "../../references/acceptance-report.md"
+  ]
+}

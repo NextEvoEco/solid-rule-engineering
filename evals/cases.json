@@ -1,0 +1,58 @@
+{
+  "version": "0.1.0",
+  "rule_pack": "0.2.0",
+  "cases": [
+    {
+      "id": "srp-cohesive-orchestration",
+      "description": "Coordinator that delegates to independent operations must not be split solely because it coordinates multiple steps.",
+      "fixture": "fixtures/cohesive-orchestration.md",
+      "expectations": [
+        "Does not fail SRP solely because multiple operations exist",
+        "Identifies transaction consistency boundary if present",
+        "Separates policy implementation from orchestration",
+        "Returns pass or uncertain, not fail"
+      ]
+    },
+    {
+      "id": "srp-independent-change-drivers",
+      "description": "Method that directly implements two policies with independent change drivers must fail SRP.",
+      "fixture": "fixtures/independent-change-drivers.md",
+      "expectations": [
+        "Identifies two distinct change drivers with requirement citations",
+        "Returns fail with evidence for each driver",
+        "States actual impact and remediation necessity separately",
+        "Does not prescribe refactoring unconditionally"
+      ]
+    },
+    {
+      "id": "srp-count-only-rationale",
+      "description": "Long method with many parameters must not fail SRP on structural metrics alone.",
+      "fixture": "fixtures/count-only-rationale.md",
+      "expectations": [
+        "Does not fail SRP based on line count or parameter count alone",
+        "Requests or collects semantic evidence before deciding",
+        "Returns uncertain if semantic evidence is unavailable"
+      ]
+    },
+    {
+      "id": "ocp-no-variation-axis",
+      "description": "Single-implementation conditional must not trigger an OCP abstraction recommendation.",
+      "fixture": "fixtures/single-implementation.md",
+      "expectations": [
+        "Does not recommend Strategy or interface without demonstrated variation",
+        "Returns not-applicable or pass for OCP",
+        "Records what future evidence would justify an extension point"
+      ]
+    },
+    {
+      "id": "uncertain-missing-callers",
+      "description": "Target with no visible callers must not receive a definitive pass or fail when callers could change the decision.",
+      "fixture": "fixtures/no-visible-callers.md",
+      "expectations": [
+        "Returns uncertain when hidden callers could alter the conclusion",
+        "Identifies what caller evidence is missing",
+        "Does not invent caller behavior"
+      ]
+    }
+  ]
+}
