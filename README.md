@@ -39,6 +39,41 @@ behavior — callers, tests, contracts, and source code — as evidence. Finding
 derived from inferred semantics are labeled as inference, not fact, and are reported
 as `uncertain` rather than `fail` when missing context could change the decision.
 
+### AI-generated and AI-maintained code
+
+When AI generates code, it optimizes for local coherence — clean structure, DRY
+patterns, readable names. When AI later maintains that code, the same tendency
+becomes a risk: it may merge functions that look similar but have independent
+change drivers, or refactor away a boundary that was deliberately placed for a
+business reason it cannot see.
+
+This is **semantic erosion**: the code still works, but the business boundaries
+quietly disappear.
+
+Requirements-driven analysis produces artifacts that resist this. A traceability
+table that records `completePayment → SRS §3.2 + AC-002, independent of §5.1`
+tells the next AI agent which boundaries have a documented reason and must not be
+"optimized" away. A finding marked `uncertain` tells it the evidence was
+incomplete — verify before changing.
+
+The analysis report and requirement–code map committed to the repository become
+**LLM-readable maintenance contracts**: structured evidence that future agents
+can load as context before modifying any code they did not write.
+
+```
+AI generates code with SOLID boundaries
+        ↓
+Skill produces semantic mapping + change-driver evidence
+        ↓
+Artifacts committed to the repository
+        ↓
+AI maintenance agent loads artifacts as context
+        ↓
+Boundaries with documented reasons survive refactoring
+        ↓
+Next analysis has richer evidence to work with
+```
+
 ### What the skill will not do
 
 - Modify code, tests, requirements, or any project artifact
