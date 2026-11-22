@@ -1,4 +1,4 @@
-# Example · Separate subtotal calculation from receipt formatting
+# Example · Recommend separating subtotal calculation from receipt formatting
 
 This example uses Python. The quote flow only needs a numeric subtotal.
 Checkout needs that same amount and a formatted receipt. A reporting export
@@ -38,7 +38,7 @@ two entry points and reporting export in this example.
 | `subtotal` | SRP-F04 | fail | Lines 9 and 13 select different contracts. Checkout opts into presentation and gets a tuple. The quote gets a number. |
 | `subtotal` | SRP-F05 | pass | Searching the example for `sum(` and the total-related symbols finds line 17. Settled payments and quoted prices follow separate policies. Keep the functions separate. |
 
-## After
+## Recommended design
 
 ```python
 def subtotal(prices):
@@ -62,12 +62,11 @@ def settled_total(payments):
     return sum(payment["settled_cents"] for payment in payments)
 ```
 
-Checkout coordinates the two operations to return its existing pair. Both
-entry points consume the same numeric subtotal. The only changed signature
-belongs to the internal helper, and both of its callers are shown.
+This proposed design keeps checkout as cohesive orchestration while separating
+the independently changing receipt wording. Both entry points would consume the
+same numeric subtotal. Implementation remains outside the read-only review.
 
-Example technical checks. Run these assertions with the refactored definitions
-in the same Python process.
+Recommended technical checks for a later implementation:
 
 ```python
 assert quote([125, 75]) == 200
@@ -77,11 +76,11 @@ assert checkout([]) == (0, "Receipt subtotal: 0 cents")
 assert settled_total([{"settled_cents": 50}]) == 50
 ```
 
-## Re-evaluation
+## Provisional re-evaluation
 
-Mode is refactor. The rules are from pack 0.1.0. Inspect the second code block
-for final source locations and use the checks above to verify the caller
-contracts. Each cell records the decision and its evidence.
+Mode is review and recommendation. The rules are from pack 0.2.0. The second
+code block is proposed rather than observed repository evidence, so these
+decisions remain provisional until implementation and verification.
 
 | Target | SRP-F01 | SRP-F02 | SRP-F03 | SRP-F04 | SRP-F05 |
 | --- | --- | --- | --- | --- | --- |
@@ -90,7 +89,6 @@ contracts. Each cell records the decision and its evidence.
 | `quote` | pass · Lines 9–10 return the quote amount. | pass · Line 10 delegates subtotal policy. | pass · Line 10 uses the subtotal to form the quote. | pass · The quote assertions exercise the numeric entry-point contract. | pass · Searching for `subtotal(` finds distinct uses at lines 10 and 14. Calculation is already shared. |
 | `checkout` | pass · Lines 13–15 produce the checkout result. | pass · The amount and receipt policies are delegated. Only assembly of the checkout result belongs here. | pass · Both delegates supply parts of that result at lines 14–15. | pass · The checkout assertions exercise the amount-and-receipt entry-point contract. | pass · Searching for `subtotal(` and `receipt` identifies the shared calculation and a single presentation call. No shared checkout assembly is warranted. |
 
-The analysis gate is supported by the caller and candidate inventory. The
-implementation gate follows from the final responsibility boundaries and
-preserved entry-point contracts. The technical gate requires the assertions
-to pass. The rule gate follows from the final review of all affected functions.
+The analysis is supported by the caller and candidate inventory. Implementation
+is outside the skill contract. A later change should run the recommended checks
+and re-evaluate the affected functions and callers using final source evidence.

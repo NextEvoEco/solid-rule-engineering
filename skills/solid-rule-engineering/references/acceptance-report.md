@@ -1,20 +1,37 @@
-# Acceptance report
+# Analysis report
 
-Record the task mode, reviewed revision or working tree, rule pack version, target symbols, relevant contracts, and evidence scope. For each target, report each rule's ID, status, evidence locations, rationale, and any correction, uncertainty, or warning disposition. For an accepted exception, include its authorization and scope.
+Record the analysis mode, inspected revision or working tree, rule pack version, targets, requirement sources, relevant contracts, search scope, and evidence gaps. Separate observed repository facts from semantic inferences.
 
-| Target | Rule | Status | Evidence | Rationale and disposition |
-| --- | --- | --- | --- | --- |
-| `path:line · symbol` | `SRP-F01` | `pass` | Source, caller, contract, or test | Explain how the evidence meets the condition. |
+## Semantic mapping
 
-Report technical checks separately with the command, result, and any skipped, unavailable, or unrun checks. Cite the difference between observed repository facts and inferred domain intent where it affects a decision.
+Map the relevant chain before reporting SOLID decisions:
+
+| Requirement or behavior | Acceptance criterion | Change driver | Capability or policy | Code symbol | Evidence |
+| --- | --- | --- | --- | --- | --- |
+| `<source reference>` | `<AC or observable result>` | `<business or technical driver>` | `<meaning>` | `path:line · symbol` | `<requirement, caller, test, or source>` |
+
+## Rule decisions
+
+Report compliance, actual impact, and remediation necessity separately. Use `none`, `optional`, `planned`, `before-change`, or `immediate` for necessity.
+
+| Target | Rule | Decision | Evidence | Impact | Necessity | Recommendation or disposition |
+| --- | --- | --- | --- | --- | --- | --- |
+| `path:line · symbol` | `SRP-F01` | `pass` | `<cited evidence>` | `none` | `none` | `<reasoned disposition>` |
+
+For `uncertain`, identify the missing evidence and where to obtain it. For `accepted-exception`, include the authorization, scope, rationale, and any expiry. A failure does not by itself justify refactoring.
+
+## Optional technical observations
+
+Record read-only checks used to substantiate findings, including the command or inspection, result, and any unavailable or unrun checks. Do not add or modify tests, code, configuration, requirements, or other project artifacts.
 
 ## Completion gates
 
 | Gate | Completion criteria |
 | --- | --- |
-| Analysis | Targets and applicable rules are accounted for. Each decision cites evidence or specifies a material gap. |
-| Implementation | When requested, the final change meets the agreed responsibility boundaries and preserves external contracts except for authorized behavior changes. For review or design, mark this gate out of scope. |
-| Technical verification | The checks required for the requested workflow ran successfully. List skipped or unavailable checks and mark the gate incomplete if a required check could not run. If the requested scope calls for no technical checks, explain why. |
-| Rule acceptance | Each applicable blocking rule passes or has an accepted exception. There are no unresolved failures or uncertain decisions on applicable rules. Each warning has a disposition. Modified targets and affected callers have been re-evaluated using final evidence. |
+| Scope | Requested targets, requirement sources, applicable rules, and search boundaries are recorded. |
+| Semantic evidence | Relevant requirements or observable behavior, acceptance criteria, change drivers, and code symbols are mapped, or material gaps are explicit. |
+| Rule analysis | Each applicable rule has a supported decision; warnings and exceptions have a disposition. |
+| Recommendation | Compliance, actual impact, and remediation necessity are distinct; every recommendation cites a semantic or dependency reason and states material trade-offs. |
+| Read-only contract | No code, tests, requirements, configuration, or other project artifacts were modified. |
 
-Declare review findings for the inspected revision, design conclusions as provisional, and implementation acceptance only after all applicable gates are complete. An incomplete gate needs the concrete finding or missing evidence that prevents completion.
+Declare design conclusions provisional when implementation evidence is unavailable. An incomplete gate must name the concrete finding or missing evidence that prevents completion.
